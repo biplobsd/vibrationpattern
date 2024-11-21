@@ -4,15 +4,16 @@ import 'package:vibrationpattern/notification_service.dart';
 import '../home_screen.dart';
 import '../shared_preferences_helper.dart';
 
-class High extends StatefulWidget {
+class Editor extends StatefulWidget {
   final TypeNotification typeNotification;
-  const High({super.key, required this.typeNotification});
+
+  const Editor({super.key, required this.typeNotification});
 
   @override
-  State<High> createState() => _HighState();
+  State<Editor> createState() => _EditorState();
 }
 
-class _HighState extends State<High> {
+class _EditorState extends State<Editor> {
   List<int> pattern = [];
   List<int> intensities = [];
 

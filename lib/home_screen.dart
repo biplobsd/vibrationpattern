@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vibrationpattern/create_screen.dart';
 
-import 'widgets/high.dart';
+import 'widgets/editor.dart';
 
 enum TypeNotification { high, medium, low }
 
@@ -20,21 +21,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Vibration Pattern'),
-          bottom: TabBar(
-              tabs: TypeNotification.values
-                  .map((e) => Tab(text: e.name))
-                  .toList()),
+          bottom: TabBar(tabs: [
+            const Tab(text: 'Create'),
+            ...TypeNotification.values.map((e) => Tab(text: e.name))
+          ]),
         ),
         body: TabBarView(
-          children: TypeNotification.values
-              .map(
-                (e) => High(typeNotification: e),
-              )
-              .toList(),
+          children: [
+            CreateScreen(),
+            ...TypeNotification.values.map(
+              (e) => Editor(typeNotification: e),
+            )
+          ],
         ),
       ),
     );

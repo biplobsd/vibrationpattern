@@ -1,5 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 
+import 'create_screen.dart';
+import 'shared_preferences_helper.dart';
 import 'vibrations.dart';
 
 class NotificationService {
@@ -8,29 +10,29 @@ class NotificationService {
       null,
       [
         NotificationChannel(
-          channelGroupKey: 'vibration_tests',
-          channelKey: 'low',
-          channelName: 'Low intensity notifications',
-          channelDescription:
-              'Notification channel for notifications with low intensity',
-          enableVibration: false,
-        ),
+            channelGroupKey: 'vibration_tests',
+            channelKey: 'low',
+            channelName: 'Low intensity notifications',
+            channelDescription:
+                'Notification channel for notifications with low intensity',
+            enableVibration: false,
+            importance: NotificationImportance.High),
         NotificationChannel(
-          channelGroupKey: 'vibration_tests',
-          channelKey: 'medium',
-          channelName: 'Medium intensity notifications',
-          channelDescription:
-              'Notification channel for notifications with medium intensity',
-          enableVibration: false,
-        ),
+            channelGroupKey: 'vibration_tests',
+            channelKey: 'medium',
+            channelName: 'Medium intensity notifications',
+            channelDescription:
+                'Notification channel for notifications with medium intensity',
+            enableVibration: false,
+            importance: NotificationImportance.High),
         NotificationChannel(
-          channelGroupKey: 'vibration_tests',
-          channelKey: 'high',
-          channelName: 'High intensity notifications',
-          channelDescription:
-              'Notification channel for notifications with high intensity',
-          enableVibration: false,
-        ),
+            channelGroupKey: 'vibration_tests',
+            channelKey: 'high',
+            channelName: 'High intensity notifications',
+            channelDescription:
+                'Notification channel for notifications with high intensity',
+            enableVibration: false,
+            importance: NotificationImportance.High),
       ],
       channelGroups: [
         NotificationChannelGroup(
@@ -84,8 +86,7 @@ class NotificationService {
     );
   }
 
-  static Future<void> createNewNotification(
-      [String channelKey = 'alerts']) async {
+  static Future<void> createNewNotification(String channelKey) async {
     bool isAllowed = await AwesomeNotifications().isNotificationAllowed();
     if (!isAllowed) {
       isAllowed =
@@ -93,13 +94,18 @@ class NotificationService {
     }
     if (!isAllowed) return;
 
+    final data = await SharedPreferencesHelper.loadNotificationData(
+            notificationDataKey) ??
+        defaultData;
+
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: -1,
         channelKey: channelKey,
-        title: 'Huston! The eagle has landed!',
-        body:
-            "A small step for a man, but a giant leap to Flutter's community!",
+        title: data.title,
+        body: data.body,
+        largeIcon: data.imageURL,
+        notificationLayout: NotificationLayout.BigPicture,
       ),
     );
   }
