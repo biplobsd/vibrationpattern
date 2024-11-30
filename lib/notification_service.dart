@@ -1,4 +1,5 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'create_screen.dart';
 import 'shared_preferences_helper.dart';
@@ -51,6 +52,25 @@ class NotificationService {
       onDismissActionReceivedMethod:
           NotificationService.onDismissActionReceivedMethod,
       onActionReceivedMethod: NotificationService.onActionReceivedMethod,
+    );
+
+    FirebaseMessaging.onMessage.listen(fcmHandler);
+    FirebaseMessaging.onBackgroundMessage(fcmHandler);
+  }
+
+  static Future<void> fcmHandler(RemoteMessage event) async {
+    String title = event.notification!.title ?? '';
+    String body = event.notification!.body ?? '';
+    String channelKey = event.data['vibrationLevel'];
+
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: -1,
+        channelKey: channelKey,
+        title: title,
+        body: body,
+        notificationLayout: NotificationLayout.Default,
+      ),
     );
   }
 
