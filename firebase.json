@@ -1,1 +1,21 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"anvibration-cb915","appId":"1:687213634104:android:053980659e79b302b2bccd","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"anvibration-cb915","configurations":{"android":"1:687213634104:android:053980659e79b302b2bccd"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "pushnotification-81bac",
+          "appId": "1:529639951475:android:ed1b5f326796e4e7de6e06",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "pushnotification-81bac",
+          "configurations": {
+            "android": "1:529639951475:android:ed1b5f326796e4e7de6e06"
+          }
+        }
+      }
+    }
+  }
+}
