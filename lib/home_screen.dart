@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: TabBarView(
           children: [
-            CreateScreen(),
+            const CreateScreen(),
             ...TypeNotification.values.map(
               (e) => Editor(typeNotification: e),
             )

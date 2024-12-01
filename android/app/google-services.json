@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "687213634104",
+    "project_id": "anvibration-cb915",
+    "storage_bucket": "anvibration-cb915.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687213634104:android:09a5fe9ba6b0d773b2bccd",
+        "android_client_info": {
+          "package_name": "com.caretutors.anvibration"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0IfjtCuiBhDfqA-WlkCLp4ebUF6Bx324"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687213634104:android:053980659e79b302b2bccd",
+        "android_client_info": {
+          "package_name": "com.example.vibrationpattern"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0IfjtCuiBhDfqA-WlkCLp4ebUF6Bx324"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

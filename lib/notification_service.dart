@@ -54,22 +54,23 @@ class NotificationService {
       onActionReceivedMethod: NotificationService.onActionReceivedMethod,
     );
 
-    FirebaseMessaging.onMessage.listen(
-      (event) async {
-        String title = event.notification!.title ?? '';
-        String body = event.notification!.body ?? '';
-        String channelKey = event.data['vibrationLevel'] ?? 'low';
+    FirebaseMessaging.onMessage.listen(fcmHandler);
+    FirebaseMessaging.onBackgroundMessage(fcmHandler);
+  }
 
-        await AwesomeNotifications().createNotification(
-          content: NotificationContent(
-            id: -1,
-            channelKey: channelKey,
-            title: title,
-            body: body,
-            notificationLayout: NotificationLayout.BigPicture,
-          ),
-        );
-      },
+  static Future<void> fcmHandler(RemoteMessage event) async {
+    String title = event.notification!.title ?? '';
+    String body = event.notification!.body ?? '';
+    String channelKey = event.data['vibrationLevel'];
+
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: -1,
+        channelKey: channelKey,
+        title: title,
+        body: body,
+        notificationLayout: NotificationLayout.Default,
+      ),
     );
   }
 

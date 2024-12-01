@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:vibrationpattern/shared_preferences_helper.dart';
 
@@ -91,6 +93,41 @@ class CreateScreenState extends State<CreateScreen> {
     );
   }
 
+  Future<void> selectTime(BuildContext context) async {
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+
+    if (picked != null) {
+      // Combine TimeOfDay with the current date
+      DateTime now = DateTime.now();
+      DateTime selectedDateTime = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        picked.hour,
+        picked.minute,
+      );
+
+      // Convert to epoch time (milliseconds)
+      final epochInt = selectedDateTime.millisecondsSinceEpoch;
+
+      String? token = await FirebaseMessaging.instance.getToken();
+
+      await Dio().get(
+        'http://192.168.103.90:3000/api/webhook',
+        queryParameters: {
+          'date': epochInt,
+          'deviceToken': token,
+          'title': _titleController.text,
+          'body': _bodyController.text,
+          'vibrationLevel': 'high'
+        },
+      );
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -137,6 +174,10 @@ class CreateScreenState extends State<CreateScreen> {
                       TypeNotification.high.name);
                 },
                 child: const Text('Fire'),
+              ),
+              ElevatedButton(
+                onPressed: () => selectTime(context),
+                child: const Text("Schedule Pick Time"),
               ),
             ],
           ),
